@@ -3,15 +3,22 @@ local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Blox
 local window = library.UI("Cool UI")
 
 local tab = window:Tab("Tab",8930053558)
+local tab2 = window:Tab("Tab",8930053558)
 
 local container1 = tab:Container("Container1")
 
 local container2 = tab:Container("Container2")
 
+Container1:Label("Label")
+
 container1:Button("Test", function()
     print("Test")
 end)
 
-Container1:Toggle("Toggle", false, function(v)
+Container1:Toggle("Toggle", false, function(value)
     print(v)
+end)
+
+Container1:Dropdown("Dropdown", {"Apple","Banana","Orange"}, function(value)
+    print(value)
 end)
