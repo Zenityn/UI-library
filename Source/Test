@@ -1,0 +1,103 @@
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer or Players:GetPlayers()[1]
+
+local Notifications = {}
+
+local GUI = Instance.new("ScreenGui", player.PlayerGui)
+GUI.Name = "Notifications"
+GUI.ResetOnSpawn = false
+
+function Notifications.Create(Title, Desc, Time, TitleColor)
+    assert(typeof(Title) == "string", "Title isn't a string!")
+    assert(typeof(Time) == "number", "Time isn't a number!")
+
+    local Frame = Instance.new("Frame", GUI)
+    Frame.BackgroundColor3 = Color3.fromRGB(24, 25, 26)
+    Frame.BorderSizePixel = 0
+    Frame.Position = UDim2.new(1, 0, 1, 0)
+    Frame.Size = UDim2.new(0, 240, 0, 60)
+    Frame.ZIndex = 1
+
+    local UICorner = Instance.new("UICorner", Frame)
+    UICorner.CornerRadius = UDim.new(0, 2)
+
+    local TitleFrame = Instance.new("Frame", Frame)
+    TitleFrame.BackgroundColor3 = Color3.fromRGB(25, 26, 27)
+    TitleFrame.BorderSizePixel = 0
+    TitleFrame.Position = UDim2.new(0, 0, 0, 0)
+    TitleFrame.Size = UDim2.new(0, 240, 0, 16)
+    TitleFrame.ZIndex = 1
+
+    local Description = Instance.new("TextLabel", Frame)
+    Description.BackgroundTransparency = 1
+    Description.Position = UDim2.new(0, 0, 0.267, 0)
+    Description.Size = UDim2.new(0, 239, 0, 42)
+    Description.ZIndex = 1
+    Description.TextTransparency = 1
+    Description.Font = Enum.Font.Gotham
+    Description.Text = tostring(Desc)
+    Description.TextColor3 = Color3.fromRGB(213, 213, 213)
+    Description.TextSize = 12
+    Description.TextWrapped = true
+
+    local TitleLabel = Instance.new("TextLabel", TitleFrame)
+    TitleLabel.BackgroundTransparency = 1
+    TitleLabel.Position = UDim2.new(0.025, 0, -0.051, 0)
+    TitleLabel.Size = UDim2.new(0, 233, 0, 17)
+    TitleLabel.TextTransparency = 1
+    TitleLabel.ZIndex = 1
+    TitleLabel.Font = Enum.Font.Gotham
+    TitleLabel.Text = Title
+    TitleLabel.TextColor3 = TitleColor or Color3.new(1, 1, 1)
+    TitleLabel.TextSize = 12
+    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    local ShadowHolder = Instance.new("Frame", Frame)
+    ShadowHolder.BackgroundTransparency = 1
+    ShadowHolder.Position = UDim2.new(0, 0, 0, 0)
+    ShadowHolder.Size = UDim2.new(1, 0, 1, 0)
+    ShadowHolder.ZIndex = 1
+
+    local Shadow = Instance.new("ImageLabel", ShadowHolder)
+    Shadow.BackgroundTransparency = 1
+    Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Shadow.Size = UDim2.new(1, 47, 1, 47)
+    Shadow.ZIndex = 0
+    Shadow.Image = "rbxassetid://6014261993"
+    Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    Shadow.ImageTransparency = 0.5
+    Shadow.ResampleMode = Enum.ResamplerMode.Default
+    Shadow.ScaleType = Enum.ScaleType.Slice
+    Shadow.SliceCenter = Rect.new(49, 49, 450, 450)
+    Shadow.SliceScale = 1
+
+    Frame:TweenPosition(UDim2.new(1, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 1)
+
+    wait(0.8)
+    for _, v in pairs(Frame:GetDescendants()) do
+        if v:IsA("TextLabel") then
+            TweenService:Create(v, TweenInfo.new(0.8), {TextTransparency = 0}):Play()
+        end
+    end
+
+    wait(1.5)
+    for _, v in pairs(Frame:GetDescendants()) do
+        if v:IsA("TextLabel") then
+            TweenService:Create(v, TweenInfo.new(1.5), {TextTransparency = 1}):Play()
+        end
+    end
+
+    wait(Time - 0.5)
+    Frame:TweenPosition(UDim2.new(1, 0, 1, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 1, true, function()
+        Frame:Destroy()
+    end)
+end
+
+function Notifications.Clear()
+    for _, obj in ipairs(GUI:GetChildren()) do
+        obj:Destroy()
+    end
+end
+
+return Notifications
