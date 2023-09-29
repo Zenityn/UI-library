@@ -29,12 +29,6 @@ end
 
 
 
-local NotificationFrame = game:GetObjects("rbxassetid://6882748258")[1]
-NotificationFrame.ZIndex = 4
-NotificationFrame.Parent = NotificationHolder
-script = NotificationFrame.NotifScript
-local Notify = loadstring(NotificationFrame.NotifScript.Source)()
-script = oldScript
 
 local SolarisLib = {
     Themes = {
@@ -214,9 +208,6 @@ function Ripple(Object)
 	end)
 end
 
-function SolarisLib:Notification(title, desc)
-    Notify:New(title,desc)
-end    
 
 function SolarisLib:New(Config)
     if not isfolder(Config.FolderToSave) then 
