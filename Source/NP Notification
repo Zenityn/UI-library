@@ -88,4 +88,6 @@ function CreateNotification(Titl, Descriptio, Duration)
     NP:Destroy()
 end
 
-
+function Notify(Titl, Descriptio, Duration)
+    CreateNotification(Titl, Descriptio, Duration)
+end
