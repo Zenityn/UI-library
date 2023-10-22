@@ -1,0 +1,91 @@
+local function Notify(Titl, Descriptio, Duration)
+    
+    local NP = Instance.new("ScreenGui")
+    NP["ResetOnSpawn"] = false
+    NP["Name"] = "NP"
+    NP["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling
+    NP["Parent"] = game['CoreGui']
+
+    local NotificationFrame = Instance.new("Frame")
+    NotificationFrame["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    NotificationFrame["AnchorPoint"] = Vector2.new(1, 1)
+    NotificationFrame["Name"] = "NotificationFrame"
+    NotificationFrame["Size"] = UDim2.new(0, 292, 0, 100)
+    NotificationFrame["BackgroundTransparency"] = 1
+    NotificationFrame["Position"] = UDim2.new(1, 0, 1, 0)
+    NotificationFrame["Parent"] = NP
+
+    local Title = Instance.new("TextLabel")
+    Title["TextWrapped"] = true
+    Title["RichText"] = true
+    Title["Name"] = "Title"
+    Title["TextScaled"] = true
+    Title["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    Title["FontFace"] = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+    Title["AnchorPoint"] = Vector2.new(0.5, 0)
+    Title["Size"] = UDim2.new(0.8999999761581421, 10, 0.25, 0)
+    Title["Position"] = UDim2.new(0.5, 10, 0.20000000298023224, 0)
+    Title["TextColor3"] = Color3.fromRGB(255, 255, 255)
+    Title["Text"] = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    Title["TextTransparency"] = 1
+    Title["BackgroundTransparency"] = 1
+    Title["TextXAlignment"] = Enum.TextXAlignment.Right
+    Title["TextSize"] = 14
+    Title["Parent"] = NotificationFrame
+
+    local Description = Instance.new("TextLabel")
+    Description["TextWrapped"] = true
+    Description["Name"] = "Description"
+    Description["TextScaled"] = true
+    Description["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    Description["FontFace"] = Font.new("rbxasset://fonts/families/Roboto.json", Enum.FontWeight.Light, Enum.FontStyle.Normal)
+    Description["AnchorPoint"] = Vector2.new(0.5, 0)
+    Description["Size"] = UDim2.new(0.8999999761581421, 10, 0.125, 0)
+    Description["Position"] = UDim2.new(0.5, 10, 0.44999998807907104, 0)
+    Description["TextColor3"] = Color3.fromRGB(255, 255, 255)
+    Description["Text"] = "Description"
+    Description["TextTransparency"] = 1
+    Description["BackgroundTransparency"] = 1
+    Description["TextXAlignment"] = Enum.TextXAlignment.Right
+    Description["TextSize"] = 14
+    Description["Parent"] = NotificationFrame
+
+
+    local executor = identifyexecutor()
+    
+    local Tween: TweenService = game:GetService("TweenService")
+    local NotificationNP = game.CoreGui.NP
+    local DescriptionLabel = NotificationNP.NotificationFrame.Description
+    local TitleLabel = NotificationNP.NotificationFrame.Title
+    
+    TitleLabel.Text = Titl 
+    DescriptionLabel.Text = Descriptio
+    
+    Tween:Create(DescriptionLabel, TweenInfo.new(.2), {
+        Position = UDim2.new(0.5, 0, 0.45, 0),
+        TextTransparency = 0,
+    }):Play()
+    wait(.1)
+    
+    Tween:Create(TitleLabel, TweenInfo.new(.2), {
+        Position = UDim2.new(0.5, 0, 0.2, 0),
+        TextTransparency = 0,
+    }):Play()
+    
+    wait(Duration) 
+    
+    Tween:Create(DescriptionLabel, TweenInfo.new(.2), {
+        Position = UDim2.new(0.5, 10, 0.45, 0),
+        TextTransparency = 1,
+    }):Play()
+    wait(.1)
+    
+    local lasttween = Tween:Create(TitleLabel, TweenInfo.new(.2), {
+        Position = UDim2.new(0.5, 10, 0.2, 0),
+        TextTransparency = 1,
+    }):Play()
+    
+    wait(.1)
+    NP:Destroy()
+end
+
