@@ -1,4 +1,4 @@
-local function Notify(Titl, Descriptio, Duration)
+function CreateNotification(Titl, Descriptio, Duration)
     
     local NP = Instance.new("ScreenGui")
     NP["ResetOnSpawn"] = false
@@ -51,7 +51,6 @@ local function Notify(Titl, Descriptio, Duration)
     Description["Parent"] = NotificationFrame
 
 
-    local executor = identifyexecutor()
     
     local Tween: TweenService = game:GetService("TweenService")
     local NotificationNP = game.CoreGui.NP
@@ -88,4 +87,5 @@ local function Notify(Titl, Descriptio, Duration)
     wait(.1)
     NP:Destroy()
 end
+
 
