@@ -1,4 +1,4 @@
-function CreateNotification(Titl, Descriptio, Duration)
+local function CreateNotification(Titl, Descriptio, Duration)
     
     local NP = Instance.new("ScreenGui")
     NP["ResetOnSpawn"] = false
